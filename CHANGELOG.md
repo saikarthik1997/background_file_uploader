@@ -1,3 +1,11 @@
+## 0.1.1
+
+* Fixed foreground service type declarations for Android 12+
+* Added proper AndroidManifest service configuration
+* Improved HTTP request/response logging for debugging
+* Fixed OkHttp buffer import issues
+* Enhanced error messages and logging
+
 ## 0.1.0
 
 * Initial release

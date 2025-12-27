@@ -1,6 +1,6 @@
 name: background_file_uploader
 description: A Flutter plugin for uploading files in the background with progress notifications. Uses WorkManager on Android and URLSession on iOS for reliable background uploads.
-version: 0.1.0
+version: 0.1.1
 homepage: https://github.com/saikarthik1997/background_file_uploader
 repository: https://github.com/saikarthik1997/background_file_uploader
 issue_tracker: https://github.com/saikarthik1997/background_file_uploader/issues
