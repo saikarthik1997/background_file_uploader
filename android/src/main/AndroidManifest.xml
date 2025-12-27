@@ -1,3 +1,16 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-  package="com.example.background_file_uploader">
+    package="com.example.background_file_uploader">
+
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
+
+    <application>
+
+        <service
+            android:name="androidx.work.impl.foreground.SystemForegroundService"
+            android:permission="android.permission.FOREGROUND_SERVICE"
+            android:exported="false"
+            android:foregroundServiceType="dataSync" />
+
+    </application>
 </manifest>

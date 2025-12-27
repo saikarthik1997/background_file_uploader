@@ -14,6 +14,10 @@ import okhttp3.MultipartBody
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.logging.HttpLoggingInterceptor
+import okio.Buffer
+import okio.ForwardingSink
+import okio.buffer
 import java.io.File
 import java.io.IOException
 import java.util.concurrent.TimeUnit
@@ -85,10 +89,18 @@ class UploadWorker(
         var uploadedBytes = 0L
 
         try {
+            // Create logging interceptor
+            val logging = HttpLoggingInterceptor { message ->
+                android.util.Log.d("UploadWorker", message)
+            }.apply {
+                level = HttpLoggingInterceptor.Level.BODY
+            }
+
             val client = OkHttpClient.Builder()
                 .connectTimeout(30, TimeUnit.SECONDS)
                 .writeTimeout(30, TimeUnit.SECONDS)
                 .readTimeout(30, TimeUnit.SECONDS)
+                .addInterceptor(logging)
                 .build()
 
             // Build multipart request
@@ -262,17 +274,17 @@ class ProgressRequestBody(
     override fun contentLength() = totalBytes
 
     override fun writeTo(sink: okio.BufferedSink) {
-        val progressSink = object : okio.ForwardingSink(sink) {
+        val progressSink = object : ForwardingSink(sink) {
             var bytesWritten = 0L
 
-            override fun write(source: okio.Buffer, byteCount: Long) {
+            override fun write(source: Buffer, byteCount: Long) {
                 super.write(source, byteCount)
                 bytesWritten += byteCount
                 onProgress(bytesWritten)
             }
         }
 
-        val bufferedSink = okio.buffer(progressSink)
+        val bufferedSink = progressSink.buffer()
         requestBody.writeTo(bufferedSink)
         bufferedSink.flush()
     }

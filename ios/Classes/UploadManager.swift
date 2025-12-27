@@ -154,6 +154,10 @@ extension UploadManager: URLSessionDelegate, URLSessionTaskDelegate, URLSessionD
             return
         }
         
+        // Log progress
+        let percentage = (Double(totalBytesSent) / Double(totalBytesExpectedToSend)) * 100
+        NSLog("[UploadWorker] Upload Progress - ID: %@, Bytes: %lld/%lld (%.1f%%)", uploadId, totalBytesSent, totalBytesExpectedToSend, percentage)
+        
         let progress = UploadProgressData(
             uploadId: uploadId,
             bytesUploaded: totalBytesSent,
@@ -186,6 +190,9 @@ extension UploadManager: URLSessionDelegate, URLSessionTaskDelegate, URLSessionD
         let taskData = uploadData[uploadId]
         
         if let error = error {
+            // Log error
+            NSLog("[UploadWorker] Upload Failed - ID: %@, Error: %@", uploadId, error.localizedDescription)
+            
             // Upload failed
             let result = UploadResultData(
                 uploadId: uploadId,
@@ -207,6 +214,9 @@ extension UploadManager: URLSessionDelegate, URLSessionTaskDelegate, URLSessionD
                 )
             }
         } else if let httpResponse = task.response as? HTTPURLResponse {
+            // Log success
+            NSLog("[UploadWorker] Upload Completed - ID: %@, Status Code: %ld, URL: %@", uploadId, (long)httpResponse.statusCode, httpResponse.url?.absoluteString ?? "unknown")
+            
             // Upload completed
             let isSuccess = (200...299).contains(httpResponse.statusCode)
             

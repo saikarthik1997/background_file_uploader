@@ -80,10 +80,13 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _showUploadDialog(String filePath, String fileName) {
     final urlController = TextEditingController(
-      text: 'https://httpbin.org/post', // Test endpoint
+      text:
+          'https://1348cfa4-6228-4242-8511-0c22c5de2c12.mock.pstmn.io/uploadFile', // Test endpoint
     );
     final headerKeyController = TextEditingController(text: 'Authorization');
-    final headerValueController = TextEditingController(text: 'Bearer token123');
+    final headerValueController = TextEditingController(
+      text: 'Bearer token123',
+    );
 
     showDialog(
       context: context,
@@ -94,7 +97,10 @@ class _MyHomePageState extends State<MyHomePage> {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('File: $fileName', style: const TextStyle(fontWeight: FontWeight.bold)),
+              Text(
+                'File: $fileName',
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
               const SizedBox(height: 16),
               TextField(
                 controller: urlController,
@@ -194,9 +200,9 @@ class _MyHomePageState extends State<MyHomePage> {
         _uploadFiles.remove(uploadId);
       });
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Upload cancelled')),
-        );
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(const SnackBar(content: Text('Upload cancelled')));
       }
     }
   }
@@ -209,9 +215,13 @@ class _MyHomePageState extends State<MyHomePage> {
       context: context,
       builder: (context) => AlertDialog(
         title: Text(
-          result.status == UploadStatus.completed ? 'Upload Complete' : 'Upload Failed',
+          result.status == UploadStatus.completed
+              ? 'Upload Complete'
+              : 'Upload Failed',
           style: TextStyle(
-            color: result.status == UploadStatus.completed ? Colors.green : Colors.red,
+            color: result.status == UploadStatus.completed
+                ? Colors.green
+                : Colors.red,
           ),
         ),
         content: Column(
@@ -227,7 +237,10 @@ class _MyHomePageState extends State<MyHomePage> {
             ],
             if (result.error != null) ...[
               const SizedBox(height: 8),
-              Text('Error: ${result.error}', style: const TextStyle(color: Colors.red)),
+              Text(
+                'Error: ${result.error}',
+                style: const TextStyle(color: Colors.red),
+              ),
             ],
           ],
         ),
@@ -277,11 +290,7 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(
-                    Icons.cloud_upload,
-                    size: 100,
-                    color: Colors.grey[400],
-                  ),
+                  Icon(Icons.cloud_upload, size: 100, color: Colors.grey[400]),
                   const SizedBox(height: 24),
                   Text(
                     'No active uploads',
