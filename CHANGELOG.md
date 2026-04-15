@@ -1,3 +1,8 @@
+## 0.1.3
+
+* Fixed Swift compiler error in NSLog format specifier for iOS
+* Removed invalid C-style cast in UploadManager logging
+
 ## 0.1.1
 
 * Fixed foreground service type declarations for Android 12+

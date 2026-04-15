@@ -215,7 +215,7 @@ extension UploadManager: URLSessionDelegate, URLSessionTaskDelegate, URLSessionD
             }
         } else if let httpResponse = task.response as? HTTPURLResponse {
             // Log success
-            NSLog("[UploadWorker] Upload Completed - ID: %@, Status Code: %ld, URL: %@", uploadId, (long)httpResponse.statusCode, httpResponse.url?.absoluteString ?? "unknown")
+            NSLog("[UploadWorker] Upload Completed - ID: %@, Status Code: %ld, URL: %@", uploadId, httpResponse.statusCode, httpResponse.url?.absoluteString ?? "unknown")
             
             // Upload completed
             let isSuccess = (200...299).contains(httpResponse.statusCode)
