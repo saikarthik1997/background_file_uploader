@@ -66,8 +66,7 @@ jobs:
         run: flutter pub get & flutter doctor
 
       - name: 6. Build APK
-        run: cd example/
-        run: flutter build apk
+        run: cd example && flutter build apk
 
   build_ios:
     runs-on: macos-latest
@@ -127,5 +126,4 @@ jobs:
           fi
 
       - name: 8. Build iOS
-        run: cd example/
-        run: flutter build ios --no-codesign
+        run: cd example && flutter build ios --no-codesign
