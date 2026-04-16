@@ -5,7 +5,6 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
 
     <application>
-
         <service
             android:name="androidx.work.impl.foreground.SystemForegroundService"
             android:permission="android.permission.FOREGROUND_SERVICE"
